@@ -1,0 +1,69 @@
+####第一个统计报表的基础数据(无虚数,无7折以下）
+library(reshape2)
+bridge_one<-miu_brand_order_all_narrow_effective[,c("member_id",
+                                                    "order_product_qty",
+                                                    "order_virtual_activity",
+                                                    "discount_bar")]
+bridge_one_one<-dcast(bridge_one,member_id~order_virtual_activity)
+bridge_one_one<-bridge_one_one[which(bridge_one_one$虚活动<=0),]
+#无七折以下订单
+library(plyr)
+bridge_two<-join(bridge_one_one,miu_brand_order_all_narrow_effective,by="member_id",type="left",match="first")
+
+bridge_two_two<-dcast(bridge_two,member_id~discount_bar)
+
+library(dplyr)
+bridge_two<-left_join(bridge_one_one,miu_brand_order_all_narrow_effective,by="member_id")
+
+bridge_two_two$index<-NA
+bridge_two_two$index<-as.numeric(bridge_two_two$"4折以下"+
+                                   bridge_two_two$"4-5折"+
+                                   bridge_two_two$"5-5.5折"+
+                                   bridge_two_two$"5.5-6折"+
+                                   bridge_two_two$"6-7折")
+bridge_two_two<-bridge_two_two[which(bridge_two_two$index<=0),] 
+bridge_two_two$index_two<-NA
+bridge_two_two$index_two<-as.numeric(bridge_two_two$"7-8折"+
+                                       bridge_two_two$"8-9折"+
+                                       bridge_two_two$"9折以上")
+####bridge_two_two第一个统计报表的会员(无虚数,无7折以下）
+
+bridge_three<-dcast(bridge_two,member_id~discount_bar)
+
+bridge_three$index<-NA
+bridge_three$index<-as.numeric(bridge_three$"4折以下"+
+                                 bridge_three$"4-5折"+
+                                 bridge_three$"5-5.5折"+
+                                 bridge_three$"7-8折"+
+                                 bridge_three$"8-9折"+
+                                 bridge_three$"9折以上")
+bridge_three_three<-bridge_three[which(bridge_three$index<=0),] 
+bridge_three_three$index_two<-NA
+bridge_three_three$index_two<-as.numeric(bridge_three_three$"5.5-6折"+
+                                           bridge_three_three$"6-7折")
+
+####bridge_three_three第一个统计报表的会员(无虚数,无5.5折以下且无7折以上）
+
+bridge_four<-dcast(bridge_one,member_id~order_virtual_activity)
+
+bridge_four_four<-bridge_four[which(bridge_four$虚活动>=1),]
+bridge_four_four<-unique(bridge_four_four)
+bridge_four_four$index<-NA
+bridge_four_four$index<-as.numeric(bridge_four_four$"实活动"+
+                                     bridge_four_four$"虚活动")
+bridge_four_four<-bridge_four_four[,c("member_id","index")]
+
+bridge_five<-dcast(bridge_one,member_id~discount_bar)
+bridge_five$index<-NA
+bridge_five$index<-as.numeric(bridge_five$"4折以下"+
+                                bridge_five$"4-5折"+
+                                bridge_five$"5-5.5折")
+
+bridge_five_five<-bridge_five[which(bridge_five$index>=1),] 
+bridge_five_five<-unique(bridge_five_five)
+bridge_five_five<-bridge_five_five[,c("member_id","index")]
+
+bridge_six<-rbind(bridge_four_four,bridge_five_five)
+bridge_six$index_two<-NA
+bridge_six<-unique(bridge_six[,c("member_id","index_two")])
+####bridge_six第一个统计报表的会员(含虚数、有购买5.5折以下）
