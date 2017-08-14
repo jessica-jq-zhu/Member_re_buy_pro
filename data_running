@@ -1,0 +1,120 @@
+####（无虚数&无7折以下）捞取符合条件的会员的窄表,none_virtual_thirtyoff
+library(plyr)
+none_virtual_thirtyoff<-join(bridge_two_two,miu_brand_order_all_narrow_effective,by="member_id",type="left",match="all")
+none_virtual_thirtyoff<-none_virtual_thirtyoff[,c("member_id",
+                                                  "order_no",
+                                                  "order_detail_id",
+                                                  "order_product_qty",
+                                                  "member_is_attention")]
+###（无虚数&无7折以下）按订单数量
+table_one<-aggregate(none_virtual_thirtyoff$order_no~none_virtual_thirtyoff$member_id,data=none_virtual_thirtyoff,FUN="length")
+names(table_one)<-c("member_id","order_no_sum")
+
+#按照订单数量统计会员人数
+outcome_one<-table(table_one$order_no_sum)
+outcome_one
+
+#按照订单数量统计关注人数
+library(plyr)
+table_two<-join(table_one,none_virtual_thirtyoff,by="member_id",type="left",match="first")
+outcome_two<-table(table_two$member_is_attention,table_two$order_no_sum)
+outcome_two
+
+###（无虚数&无7折以下）按购买双数
+#照member_id统计购买双数
+table_three<-aggregate(none_virtual_thirtyoff$order_product_qty~none_virtual_thirtyoff$member_id,data=none_virtual_thirtyoff,FUN="sum")
+names(table_three)<-c("member_id","order_product_qty_sum")
+
+#按照购买双数统计会员人数
+outcome_three<-table(table_three$order_product_qty_sum)
+outcome_three
+
+#按照购买双数统计关注人数
+library(plyr)
+table_four<-join(table_three,none_virtual_thirtyoff,by="member_id",type="left",match="first")
+outcome_four<-table(table_four$member_is_attention,table_four$order_product_qty_sum)
+outcome_four
+
+
+
+####（无虚数，无5.5折以下且无7折以上）捞取符合条件的会员的窄表,none_virtual_middleoff
+library(plyr)
+none_virtual_middleoff<-join(bridge_three_three,miu_brand_order_all_narrow_effective,by="member_id",type="left",match="all")
+none_virtual_middleoff<-none_virtual_middleoff[,c("member_id",
+                                                  "order_no",
+                                                  "order_detail_id",
+                                                  "order_product_qty",
+                                                  "member_is_attention")]
+###（无虚数，无5.5折以下且无7折以上）按订单数量
+table_five<-aggregate(none_virtual_middleoff$order_no~none_virtual_middleoff$member_id,data=none_virtual_middleoff,FUN="length")
+names(table_five)<-c("member_id","order_no_sum")
+
+#按照订单数量统计会员人数
+outcome_five<-table(table_five$order_no_sum)
+outcome_five
+
+#按照订单数量统计关注人数
+library(plyr)
+table_six<-join(table_five,none_virtual_middleoff,by="member_id",type="left",match="first")
+outcome_six<-table(table_six$member_is_attention,table_six$order_no_sum)
+outcome_six
+
+###（无虚数，无5.5折以下且无7折以上）按购买双数
+#照member_id统计购买双数
+table_seven<-aggregate(none_virtual_middleoff$order_product_qty~none_virtual_middleoff$member_id,data=none_virtual_middleoff,FUN="sum")
+names(table_seven)<-c("member_id","order_product_qty_sum")
+
+#按照购买双数统计会员人数
+outcome_seven<-table(table_seven$order_product_qty_sum)
+outcome_seven
+
+#按照购买双数统计关注人数
+library(plyr)
+table_eight<-join(table_seven,none_virtual_middleoff,by="member_id",type="left",match="first")
+outcome_eight<-table(table_eight$member_is_attention,table_eight$order_product_qty_sum)
+outcome_eight
+
+
+
+
+
+####（凡有虚数&凡有5.5折以下）捞取符合条件的会员的窄表,virtual_or_fiftyoff
+library(plyr)
+virtual_or_fiftyoff<-join(bridge_six,miu_brand_order_all_narrow_effective,by="member_id",type="left",match="all")
+virtual_or_fiftyoff<-virtual_or_fiftyoff[,c("member_id",
+                                               "order_no",
+                                               "order_detail_id",
+                                               "order_product_qty",
+                                               "member_is_attention")]
+###（凡有虚数&凡有5.5折以下）按订单数量
+table_nine<-aggregate(virtual_or_fiftyoff$order_no~virtual_or_fiftyoff$member_id,data=virtual_or_fiftyoff,FUN="length")
+names(table_nine)<-c("member_id","order_no_sum")
+
+#按照订单数量统计会员人数
+outcome_nine<-as.data.frame(table(table_nine$order_no_sum))
+outcome_nine
+write.csv(outcome_nine,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
+
+#按照订单数量统计关注人数
+library(plyr)
+table_ten<-join(table_nine,virtual_or_fiftyoff,by="member_id",type="left",match="first")
+outcome_ten<-as.data.frame(table(table_ten$member_is_attention,table_ten$order_no_sum))
+outcome_ten
+write.csv(outcome_ten,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
+
+
+###（凡有虚数&凡有5.5折以下）按购买双数
+#照member_id统计购买双数
+table_eleven<-aggregate(virtual_or_fiftyoff$order_product_qty~virtual_or_fiftyoff$member_id,data=virtual_or_fiftyoff,FUN="sum")
+names(table_eleven)<-c("member_id","order_product_qty_sum")
+
+#按照购买双数统计会员人数
+outcome_eleven<-table(table_eleven$order_product_qty_sum)
+outcome_eleven
+write.csv(outcome_eleven,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
+
+#按照购买双数统计关注人数
+library(plyr)
+table_twelve<-join(table_eleven,virtual_or_fiftyoff,by="member_id",type="left",match="first")
+outcome_twelve<-table(table_twelve$member_is_attention,table_twelve$order_product_qty_sum)
+outcome_twelve
