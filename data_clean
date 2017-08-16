@@ -1,124 +1,115 @@
-#导入最原始数据,命名为wide表
 library(readr)
-miu_brand_order_st_wide <- read_delim("C:/Users/Administrator/Desktop/会员复购数据/miu_brand_order_st_all.txt", 
-                                     "\t", escape_double = FALSE, col_names = FALSE, 
-                                     trim_ws = TRUE)
+st <- read_delim("C:/Users/Administrator/Desktop/会员复购数据/st.txt", 
+                 "`", escape_double = FALSE, col_names = FALSE, 
+                 trim_ws = TRUE)
 
-#为wide表添加表头
-names(miu_brand_order_st_wide)<-c("member_id",
-                                   "member_mobile",
-                                   "member_vip_no",
-                                   "member_card_no",
-                                   "member_type",
-                                   "member_is_black_list",
-                                   "member_name",
-                                   "member_sex",
-                                   "member_birthday",
-                                   "member_age",
-                                   "member_province",
-                                   "member_city",
-                                   "member_district",
-                                   "member_address",
-                                   "member_register_store_no",
-                                   "member_register_store_name",
-                                   "member_register_date",
-                                   "member_is_attention",
-                                   "member_register_brand_code",
-                                   "member_level_name",
-                                   "member_valid_amount",
-                                   "member_overdue_amount",
-                                   "member_expired_amount",
-                                   "member_used_amount",
-                                   "order_type",
-                                   "order_out_date",
-                                   "order_no",
-                                   "order_detail_id",
-                                   "product_code",
-                                   "product_category_1",
-                                   "product_category_2",
-                                   "product_category_3",
-                                   "product_year",
-                                   "product_season_1",
-                                   "product_season_2",
-                                   "product_gender",
-                                   "product_style",
-                                   "order_product_size",
-                                   "order_product_qty",
-                                   "order_product_tag_pric",
-                                   "order_amount",
-                                   "order_virtual_activity",
-                                   "order_region",
-                                   "store_no",
-                                   "store_name",
-                                   "store_main_brand",
-                                   "store_secondary_brand",
-                                   "store_mode",
-                                   "store_category_1",
-                                   "store_category_2",
-                                   "store_category_3",
-                                   "store_channel_1",
-                                   "store_channel_2",
-                                   "store_channel_3",
-                                   "store_province",
-                                   "store_city",
-                                   "store_county",
-                                   "store_province_normal",
-                                   "store_city_normal",
-                                   "store_county_normal",
-                                   "store_latitude",
-                                   "store_longitude",
-                                   "store_area_total",
-                                   "store_business_area",
-                                   "store_opend_date",
-                                   "store_closed_date",
-                                   "store_status",
-                                   "store_pay_type",
-                                   "store_mall",
-                                   "store_circle",
-                                   "store_company_name",
-                                   "store_staff_number",
-                                   "store_floor_number",
-                                   "store_address",
-                                   "store_business_category",
-                                   "store_container_type",
-                                   "store_property_type",
-                                   "net_discount_rate")
-
-
-
+names(st)<-c("member_id",
+             "member_mobile",
+             "member_vip_no",
+             "member_card_no",
+             "member_type",
+             "member_is_black_list",
+             "member_name",
+             "member_sex",
+             "member_birthday",
+             "member_age",
+             "member_province",
+             "member_city",
+             "member_district",
+             "member_address",
+             "member_register_store_no",
+             "member_register_store_name",
+             "member_register_date",
+             "member_is_attention",
+             "member_register_brand_code",
+             "member_level_name",
+             "member_valid_amount",
+             "member_overdue_amount",
+             "member_expired_amount",
+             "member_used_amount",
+             "order_type",
+             "order_out_date",
+             "order_no",
+             "order_detail_id",
+             "product_code",
+             "product_category_1",
+             "product_category_2",
+             "product_category_3",
+             "product_year",
+             "product_season_1",
+             "product_season_2",
+             "product_gender",
+             "product_style",
+             "order_product_size",
+             "order_product_qty",
+             "order_product_tag_pric",
+             "order_amount",
+             "order_virtual_activity",
+             "order_region",
+             "store_no",
+             "store_name",
+             "store_main_brand",
+             "store_secondary_brand",
+             "store_mode",
+             "store_category_1",
+             "store_category_2",
+             "store_category_3",
+             "store_channel_1",
+             "store_channel_2",
+             "store_channel_3",
+             "store_province",
+             "store_city",
+             "store_county",
+             "store_province_normal",
+             "store_city_normal",
+             "store_county_normal",
+             "store_latitude",
+             "store_longitude",
+             "store_area_total",
+             "store_business_area",
+             "store_opend_date",
+             "store_closed_date",
+             "store_status",
+             "store_pay_type",
+             "store_mall",
+             "store_circle",
+             "store_company_name",
+             "store_staff_number",
+             "store_floor_number",
+             "store_address",
+             "store_business_category",
+             "store_container_type",
+             "store_property_type",
+             "net_discount_rate")
 
 #构造窄表用以分析
-miu_brand_order_all_narrow<-miu_brand_order_st_wide[c("member_id",
-                                                       "member_type",
-                                                       "member_is_black_list",
-                                                       "order_type",
-                                                       "order_no",
-                                                       "order_detail_id",
-                                                       "member_is_attention",
-                                                       "order_product_qty",
-                                                       "order_amount",
-                                                       "order_virtual_activity",
-                                                       "net_discount_rate"
-)]
+miu_brand_order_all_narrow<-st[c("member_id",
+                                 "member_type",
+                                 "member_is_black_list",
+                                 "order_type",
+                                 "order_no",
+                                 "order_detail_id",
+                                 "member_is_attention",
+                                 "order_product_qty",
+                                 "order_amount",
+                                 "order_virtual_activity",
+                                 "net_discount_rate")]
 
-#刨除net_discount_rate为NA的原始数据
+
+#刨除net_discount_rate为NA的原始数据,把源数据用`分割后，不存在net_discount_rate为空的数据
 miu_brand_order_all_narrow$net_discount_rate[is.na(miu_brand_order_all_narrow$net_discount_rate)] <- 5
 miu_brand_order_all_narrow<-miu_brand_order_all_narrow[which(miu_brand_order_all_narrow$net_discount_rate!=5),]
 
-#刨除member_is_attention为非法值的原始数据
-check<-unique(miu_brand_order_st_all$member_is_attention)
+#针对member_is_attention为NULL的原始数据进行重命名为“未关注”
+miu_brand_order_all_narrow$member_is_attention<-ifelse((miu_brand_order_all_narrow$member_is_attention!="关注"& miu_brand_order_all_narrow$member_is_attention!="取消关注"),"未关注",miu_brand_order_all_narrow$member_is_attention)
+check<-unique(miu_brand_order_all_narrow$member_is_attention)
 check
-
-miu_brand_order_all_narrow$member_is_attention<-ifelse((miu_brand_order_all_narrow$member_is_attention!="关注"&
-miu_brand_order_all_narrow$member_is_attention!="取消关注"),"NULL",miu_brand_order_all_narrow$member_is_attention)
-miu_brand_order_all_narrow<-miu_brand_order_all_narrow[which(miu_brand_order_all_narrow$member_is_attention!="NULL"),]
 
 
 #刨除member_type和black_list客户，新建表为effective
 miu_brand_order_all_narrow_effective<-miu_brand_order_all_narrow[
   which(miu_brand_order_all_narrow$member_type=="普通会员"),]
 
-#one<-unique(miu_brand_order_st_all_20170809$member_type)
 miu_brand_order_all_narrow_effective<-miu_brand_order_all_narrow[
   which(miu_brand_order_all_narrow$member_is_black_list=="否"),]
 
@@ -128,7 +119,8 @@ miu_brand_order_all_narrow_effective<-within(miu_brand_order_all_narrow_effectiv
   discount_bar[net_discount_rate>=0.009]<-'9折以上'
   discount_bar[net_discount_rate>=0.008 & net_discount_rate<0.009]<-'8-9折'
   discount_bar[net_discount_rate>=0.007 & net_discount_rate<0.008]<-'7-8折'  
-  discount_bar[net_discount_rate>=0.006 & net_discount_rate<0.007]<-'6-7折'  
+  discount_bar[net_discount_rate>=0.006 & net_discount_rate<0.007]<-'6-7折'
+  discount_bar[net_discount_rate>=0.006 & net_discount_rate<0.0065]<-'6-6.5折'
   discount_bar[net_discount_rate>=0.0055 & net_discount_rate<0.006]<-'5.5-6折'  
   discount_bar[net_discount_rate>=0.005 & net_discount_rate<0.0055]<-'5-5.5折'  
   discount_bar[net_discount_rate>=0.004 & net_discount_rate<0.005]<-'4-5折'  
