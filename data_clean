@@ -117,12 +117,12 @@ miu_brand_order_all_narrow_effective<-miu_brand_order_all_narrow[
 miu_brand_order_all_narrow_effective$discount_bar<-NA
 miu_brand_order_all_narrow_effective<-within(miu_brand_order_all_narrow_effective,{
   discount_bar[net_discount_rate>=0.009]<-'9折以上'
-  discount_bar[net_discount_rate>=0.008 & net_discount_rate<0.009]<-'8-9折'
-  discount_bar[net_discount_rate>=0.007 & net_discount_rate<0.008]<-'7-8折'  
-  discount_bar[net_discount_rate>=0.006 & net_discount_rate<0.007]<-'6-7折'
-  discount_bar[net_discount_rate>=0.006 & net_discount_rate<0.0065]<-'6-6.5折'
+  discount_bar[net_discount_rate>=0.008  & net_discount_rate<0.009]<-'8-9折'
+  discount_bar[net_discount_rate>=0.007  & net_discount_rate<0.008]<-'7-8折'  
+  discount_bar[net_discount_rate>=0.006  & net_discount_rate<0.007]<-'6-7折'
+  discount_bar[net_discount_rate>=0.006  & net_discount_rate<0.0065]<-'6-6.5折'
   discount_bar[net_discount_rate>=0.0055 & net_discount_rate<0.006]<-'5.5-6折'  
-  discount_bar[net_discount_rate>=0.005 & net_discount_rate<0.0055]<-'5-5.5折'  
-  discount_bar[net_discount_rate>=0.004 & net_discount_rate<0.005]<-'4-5折'  
+  discount_bar[net_discount_rate>=0.005  & net_discount_rate<0.0055]<-'5-5.5折'  
+  discount_bar[net_discount_rate>=0.004  & net_discount_rate<0.005]<-'4-5折'  
   discount_bar[net_discount_rate<0.004]<-'4折以下'
 })
