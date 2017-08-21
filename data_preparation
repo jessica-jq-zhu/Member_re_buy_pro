@@ -32,12 +32,21 @@ library(plyr)
 bridge_three<-join(bridge_one_one,bridge_one,by="member_id",type="left",match="all")
 bridge_three_three<-dcast(bridge_three,member_id~discount_bar)
 bridge_three_three$index<-NA
-bridge_three_three$index<-as.numeric(bridge_three_three$"5.5-6折"+
+bridge_three_three$index<-as.numeric(bridge_three_three$"4折以下"+
+                                       bridge_three_three$"4-5折"+
+                                       bridge_three_three$"5-5.5折"+
+                                       bridge_three_three$"7-8折"+
+                                       bridge_three_three$"8-9折"+
+                                       bridge_three_three$"9折以上")
+bridge_three_three<-bridge_three_three[which(bridge_three_three$index<=0),] 
+
+bridge_three_three$index_two<-as.numeric(bridge_three_three$"5.5-6折"+
                                        bridge_three_three$"6-7折")
-bridge_three_three<-bridge_three_three[which(bridge_three_three$index>=1),] 
+
+bridge_three_three<-bridge_three_three[which(bridge_three_three$index_two>=1),] 
 bridge_three_three$index_two<-NA
 bridge_three_three<-unique(bridge_three_three[,c("member_id","index_two")])
-##bridge_two_two为无虚数,只有大于等于5。5折及7折以下订单的会员
+##bridge_three_three为无虚数,只有大于等于5。5折及7折以下订单的会员
 
 
 ##数据准备(除了bridge_two_two&bridge_three_three以外的所有会员）
@@ -50,5 +59,4 @@ bridge_five<-bridge_four_four[which(bridge_four_four$index_two==2),]
 bridge_five_five<-bridge_five[,c("member_id","index_two")]
 bridge_five_five$index_two<-NA
 bridge_five_five<-unique(bridge_five_five)
-##bridge_two_two为除了bridge_two_two&bridge_three_three以外的所有会员
-
+##bridge_five_five为除了bridge_two_two&bridge_three_three以外的所有会员
