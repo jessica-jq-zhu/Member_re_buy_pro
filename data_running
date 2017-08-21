@@ -39,7 +39,6 @@ outcome_four<-table(table_four$member_is_attention,table_four$order_product_qty_
 outcome_four
 
 
-
 #捞取符合条件的会员的窄表,none_virtual_middleoff
 library(plyr)
 none_virtual_middleoff<-join(bridge_three_three,miu_brand_order_all_narrow_effective,by="member_id",type="left",match="all")
@@ -97,7 +96,6 @@ names(table_nine)<-c("member_id","order_no_sum")
 #按照订单数量统计会员人数,8626人
 outcome_nine<-as.data.frame(table(table_nine$order_no_sum))
 outcome_nine
-write.csv(outcome_nine,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
 
 library(plyr)
 table_ten<-join(table_nine,virtual_or_fiftyoff,by="member_id",type="left",match="first")
@@ -106,7 +104,6 @@ table_ten<-join(table_nine,virtual_or_fiftyoff,by="member_id",type="left",match=
 #按照订单数量统计关注人数
 outcome_ten<-as.data.frame(table(table_ten$member_is_attention,table_ten$order_no_sum))
 outcome_ten
-write.csv(outcome_ten,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
 
 
 ##按购买双数
@@ -117,7 +114,6 @@ names(table_eleven)<-c("member_id","order_product_qty_sum")
 #按照购买双数统计会员人数
 outcome_eleven<-table(table_eleven$order_product_qty_sum)
 outcome_eleven
-write.csv(outcome_eleven,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
 
 library(plyr)
 table_twelve<-join(table_eleven,virtual_or_fiftyoff,by="member_id",type="left",match="first")
@@ -125,25 +121,18 @@ table_twelve<-join(table_eleven,virtual_or_fiftyoff,by="member_id",type="left",m
 #按照购买双数统计关注人数
 outcome_twelve<-table(table_twelve$member_is_attention,table_twelve$order_product_qty_sum)
 outcome_twelve
-write.csv(outcome_twelve,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
 
-outcome_one
-outcome_two
-outcome_three
-outcome_four
-outcome_five
-write.csv(outcome_five,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_six
-write.csv(outcome_six,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_seven
-write.csv(outcome_seven,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_eight
-write.csv(outcome_eight,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_nine
-write.csv(outcome_nine,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_ten
-write.csv(outcome_ten,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_eleven
-write.csv(outcome_eleven,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
-outcome_twelve
-write.csv(outcome_twelve,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\abnotmal_issue_two.csv")
+
+###导出数据
+write.csv(outcome_one,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_one.csv")
+write.csv(outcome_two,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_two.csv")
+write.csv(outcome_three,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_three.csv")
+write.csv(outcome_four,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_four.csv")
+write.csv(outcome_five,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_five.csv")
+write.csv(outcome_six,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_six.csv")
+write.csv(outcome_seven,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_seven.csv")
+write.csv(outcome_eight,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_eight.csv")
+write.csv(outcome_nine,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_nine.csv")
+write.csv(outcome_ten,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_ten.csv")
+write.csv(outcome_eleven,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_eleven.csv")
+write.csv(outcome_twelve,"C:\\Users\\Administrator\\Desktop\\会员复购数据\\outcome\\outcome_twelve.csv")
